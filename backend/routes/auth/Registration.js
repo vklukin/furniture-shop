@@ -5,34 +5,39 @@ const AuthQueryDB = require("../../controllers/AuthQuery");
 const jsonParser = bodyParser.json();
 
 module.exports = function (app) {
-  app.post("/api/register", jsonParser, async (req, res) => {
+  app.post("/auth/register", jsonParser, async (req, res) => {
     const Q = new AuthQueryDB();
 
     try {
       const { name, login, email, password } = req.body;
-      let client;
+      let candidate;
 
-      await Q.query(
-        `SELECT * FROM users WHERE email = ? OR login = ?`,
-        email,
-        login
-      ).then((data) => {
-        client = data;
-      });
-      if (client.length > 0) {
+      await Q.query(`SELECT * FROM users WHERE login = ?`, [login]).then(
+        (data) => {
+          candidate = data;
+        }
+      );
+      if (candidate.length > 0) {
         return res.status(400).json({
-          message:
-            "Пользователь с таким email адресом или логином уже существует",
+          message: "Пользователь с таким логином уже существует",
+        });
+      }
+      await Q.query(`SELECT * FROM users WHERE email = ?`, [email]).then(
+        (data) => {
+          candidate = data;
+        }
+      );
+      if (candidate.length > 0) {
+        return res.status(400).json({
+          message: "Пользователь с таким email адресом уже существует",
         });
       }
 
       const hashPassword = bcrypt.hashSync(password, 7);
       await Q.query(
-        `INSERT INTO users (email, login, name, password) VALUES (?, ?, ?, ?)`,
+        "INSERT INTO users (email, login, name, password, roleId) VALUES (?, ?, ?, ?, 2)",
         [email, login, name, hashPassword]
-      ).then(() =>
-        res.send({ message: "Пользователь был успешно зарегистрирован!" })
-      );
+      ).then(() => res.send({ message: "Вы были успешно зарегистрированы!" }));
     } catch (e) {
       console.log(e);
       return res.status(400).json({ message: "Registration error" });
