@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# Furniture shop
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About app
 
-## Available Scripts
+This is fullstack web application, that can help for user to buy something.
 
-In the project directory, you can run:
+Application uses nodeJs + express on backend side. Also, i created authorization through JWT Tokens (with access and
+refresh tokens). I chose `MySql`as the database, but database side doesn't have models in application, therefore i'm
+writing tables manually. Data of user
+saving in the table `users`. Table `users` has that structure: `id (PK), name, login, email, password, roleId (FK)`
+. `roleId` it's table for role system in application, that has that structure: `id (PK), role`.
 
-### `npm start`
+On frontend side application uses ReactJs + Redux (RTK) and SCSS. For routing i'm used **react-router-dom**. I have **
+Redux** responsible for getting the user authorization state. To notify the user of an error or other message, I use **
+react-toastify**. To get data from the database, I use **axios**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Default database values:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```dotenv
+HOST=localhost
+USER=root`
+PASSWORD=root
+DATABASE=furniture
+```
 
-### `npm test`
+## How to launch the app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Open the project in any code editor
+2. Open the folder. `.env` that which is in the folder `backend`
+3. In `.env` change `HOST, USER, PASSWORD, DATABASE`
+4. To start server for working: open the **terminal** and write this: `cd backend`, then write `npm run dev` (to start
+   server on dev mode) or `npm start` (to start server on prod. mode)
+5. To start frontend you should open your **terminal**. If this path `\furniture_shop\backend>` is specified in the
+   terminal, you need to write next commands: `cd ..` to go up to the top level in the folder, than `cd frontend`
+   and `npm start` to run frontend application's side.

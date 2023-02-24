@@ -1,22 +1,13 @@
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const AuthQueryDB = require("../../controllers/AuthQuery");
+const TokensGen = require("../../controllers/TokensGen");
 
 module.exports = function (app) {
   app.post("/auth/login", async (req, res) => {
     const Q = new AuthQueryDB();
-
-    const generateAccessToken = (id, email, login, password, role) => {
-      let payload = {
-        id,
-        email,
-        login,
-        role,
-      };
-
-      return jwt.sign(payload, password, { expiresIn: "10m" });
-    };
+    const tokens = new TokensGen();
 
     try {
       const { login, password } = req.body;
@@ -38,19 +29,27 @@ module.exports = function (app) {
         return res.status(400).json({ message: "Введен не верный пароль" });
       }
 
-      const accessToken = generateAccessToken(
+      const accessToken = tokens.generateAccessToken(
         candidate.id,
         candidate.email,
         candidate.login,
-        candidate.password,
         `${candidate.roleId === 2 ? "user" : "admin"}`
       );
+      const refreshToken = tokens.generateRefreshToken(
+        candidate.id,
+        candidate.email,
+        candidate.login,
+        `${candidate.roleId === 2 ? "user" : "admin"}`
+      );
+      res.cookie("token", refreshToken, {
+        httpOnly: true,
+      });
       return res.send({
         id: candidate.id,
         email: candidate.email,
         login: candidate.login,
         role: `${candidate.roleId === 2 ? "user" : "admin"}`,
-        accessToken: accessToken,
+        accessToken,
       });
     } catch (e) {
       console.log(e);
