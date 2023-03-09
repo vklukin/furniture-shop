@@ -1,12 +1,13 @@
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
-const AuthQueryDB = require("../../controllers/AuthQuery");
+
+const QueryDB = require("../../controllers/QueryDB");
 
 const jsonParser = bodyParser.json();
 
 module.exports = function (app) {
   app.post("/auth/register", jsonParser, async (req, res) => {
-    const Q = new AuthQueryDB();
+    const Q = new QueryDB();
 
     try {
       const { name, login, email, password } = req.body;

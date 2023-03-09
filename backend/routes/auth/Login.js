@@ -1,12 +1,12 @@
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
-const AuthQueryDB = require("../../controllers/AuthQuery");
 const TokensGen = require("../../controllers/TokensGen");
+const QueryDB = require("../../controllers/QueryDB");
 
 module.exports = function (app) {
   app.post("/auth/login", async (req, res) => {
-    const Q = new AuthQueryDB();
+    const Q = new QueryDB();
     const tokens = new TokensGen();
 
     try {
@@ -41,9 +41,9 @@ module.exports = function (app) {
         candidate.login,
         `${candidate.roleId === 2 ? "user" : "admin"}`
       );
-      res.cookie("token", refreshToken, {
-        httpOnly: true,
-      });
+      res.cookie("AToken", accessToken, { httpOnly: true });
+      res.cookie("RToken", refreshToken, { httpOnly: true });
+
       return res.send({
         id: candidate.id,
         email: candidate.email,
