@@ -1,0 +1,120 @@
+@import "variables";
+
+.profile-modal {
+  position: absolute;
+  z-index: 200;
+  right: -10px;
+  top: -5px;
+
+  min-height: 200px;
+  min-width: 200px;
+  max-width: 250px;
+  padding: 20px;
+
+  background-color: $white;
+
+  border-radius: $border-radius;
+  box-shadow: 2px 5px 10px 4px $box-shadow;
+
+  transform-origin: top right;
+  transition: all .1s ease-in;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &.show-modal {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  &.hide-modal {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  .login {
+    width: 100%;
+
+    &-button {
+      width: 100%;
+      padding: 10px;
+      color: $white;
+
+      font-family: Ubuntu-M, sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+
+      background-color: $button-color;
+      border-radius: $border-radius;
+
+      transition: all .1s;
+
+      &:hover {
+        background-color: $button-focus;
+      }
+    }
+
+    &-info {
+      font-size: 14px;
+      color: $gray;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+
+
+  .profile {
+    &-wrapper {
+      height: 100%;
+      width: 100%;
+
+      .profile__default-button {
+        width: 100%;
+        padding: 7px 5px;
+
+        font-size: 16px;
+        background-color: $white;
+
+        text-align: left;
+
+        &:hover {
+          background-color: $light-gray;
+        }
+      }
+    }
+
+    &-info {
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+
+      border-bottom: 1px solid $half-gray;
+
+      width: 100%;
+
+    }
+
+    &-descr {
+      font-size: 14px;
+      color: $gray;
+      margin-bottom: 5px;
+    }
+
+    &-login {
+      font-size: 18px;
+      text-align: left;
+    }
+
+    &-logout {
+      margin-top: 10px;
+      background-color: $button-red;
+
+      &:hover {
+        background-color: $button-dark-red;
+      }
+    }
+  }
+}
+
+

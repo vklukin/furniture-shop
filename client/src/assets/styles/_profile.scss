@@ -1,0 +1,57 @@
+@import 'variables';
+
+.profile-page {
+  .user {
+    p {
+      margin-bottom: 5px;
+
+      font-size: 18px;
+    }
+
+    .role_info {
+      margin-bottom: 10px;
+
+      font-size: 14px;
+      font-family: Ubuntu-M, sans-serif;
+    }
+  }
+
+  .requests {
+    margin-top: 30px;
+
+    &__wrapper {
+      margin-top: 10px;
+
+      width: 300px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+
+      .user-request {
+        width: 100%;
+
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid $gray;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+      }
+    }
+
+    &-title {
+      font-size: 16px;
+    }
+
+    .no-requests {
+      margin-top: 10px;
+
+      font-size: 16px;
+      color: $gray;
+    }
+  }
+}
